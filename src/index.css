@@ -43,6 +43,35 @@ a {
   font-weight: 300;
 }
 
+.w-full {
+  width: 100%;
+}
+
+.margin-auto {
+  margin: 0 auto;
+}
+
+/* Page Classes */
+
+.movies-image-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding-top: 120px;
+  width: 30%;
+}
+
+.movies-image-wrapper img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 16px;
+}
+
+.movies-image-wrapper h2 {
+  font-weight: 300;
+  text-align: center;
+}
+
 /* Animations */
 
 @keyframes spin {
@@ -51,5 +80,17 @@ a {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1320px) {
+  .movies-image-wrapper h2 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .movies-image-wrapper {
+    width: 220px;
   }
 }

@@ -25,6 +25,7 @@ export const SidebarTop = () => {
       <NavLink
         to='/movies'
         className={({ isActive }) => (isActive ? `${styles.sidebarOption} ${styles.active}` : styles.sidebarOption)}
+        end
       >
         <svg
           className={styles.sidebarOptionIcon}

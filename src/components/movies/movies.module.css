@@ -5,13 +5,6 @@
   justify-content: center;
 }
 
-.moviesTop {
-  width: 90%;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-}
-
 .moviesTitle {
   font-size: 32px;
   font-weight: 200;
@@ -57,6 +50,15 @@
   overflow: hidden;
   box-shadow: 0 8px 12px 0px rgb(5, 5, 5, 0.45);
   position: relative;
+}
+
+.movieItemLoading {
+  width: 198px;
+  height: 288px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 12px 0px rgb(5, 5, 5, 0.45);
 }
 
 .movieImageWrapper {
@@ -146,4 +148,53 @@
 
 .movieInfo:first-child {
   margin-top: 60px;
+}
+
+.moviesSearch {
+  display: flex;
+  align-items: center;
+  background-color: crimson;
+  height: 100px;
+  padding: 4px 4px 4px 24px;
+  width: 100%;
+}
+
+.movieSearchInputWrapper {
+  flex: 1;
+}
+
+.movieSearchInputWrapper input {
+  background-color: initial;
+  border: none;
+  color: #fff;
+  font-size: 40px;
+  height: 80px;
+  width: 100%;
+  outline: none;
+  -webkit-text-fill-color: #fff;
+  font-weight:300;
+
+}
+
+.movieSearchBtn {
+  background-color: initial;
+  border: 3px solid #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  height: 80px;
+  outline: none;
+  width: 100%;
+  flex: 0.15 1;
+}
+
+.movieSearchBtnIcon {
+  width: 40px;
+  height: 40px;
+  stroke: #fff;
+}
+
+@media (max-width: 640px) {
+  .movieSearchInputWrapper input {
+    font-size: 28px;
+  }
 }

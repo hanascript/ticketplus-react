@@ -1,6 +1,22 @@
+import { useState } from 'react';
+
 import styles from './header.module.css';
+import { useSearch } from '../../context/search-context';
+import { useNavigate } from 'react-router';
 
 export const Header = () => {
+  const [inputValue, setInputValue] = useState('');
+
+  const { setSearchQuery } = useSearch();
+
+  const navigate = useNavigate();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    setSearchQuery(inputValue);
+    navigate('/movies');
+  };
+
   return (
     <>
       <header className={styles.homeWrapper}>
@@ -9,15 +25,20 @@ export const Header = () => {
           <div className={styles.ctaSection}>
             <h1 className={styles.ctaTitle}>
               {' '}
-              Ticket<span class='text-highlight'>+</span>{' '}
+              Ticket<span className='text-highlight'>+</span>{' '}
             </h1>
             <h3 className={styles.ctaSubtitle}>
-              With over <span class='text-highlight'>3000</span> movies on Ticket<span class='text-highlight'>+</span>,
-              the possibilites are endless!
+              With over <span className='text-highlight'>3000</span> movies on Ticket
+              <span className='text-highlight'>+</span>, the possibilites are endless!
             </h3>
-            <div className={styles.ctaSearch}>
-              <input type='text' placeholder='Find a movie' />
-            </div>
+            <form className={styles.ctaSearch} onSubmit={handleSubmit}>
+              <input
+                type='text'
+                placeholder='Find a movie'
+                value={inputValue}
+                onChange={e => setInputValue(e.target.value)}
+              />
+            </form>
           </div>
         </figure>
       </header>
