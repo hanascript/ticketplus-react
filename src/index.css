@@ -2,8 +2,9 @@
 
 * {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, sans-serif;
   scroll-behavior: smooth;
 }
 
@@ -14,7 +15,37 @@ body {
   background-color: #1e1e1e;
 }
 
-@keyframes logo-spin {
+a {
+  text-decoration: none;
+}
+
+/* Utility classes */
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.pb-4 {
+  padding-bottom: 16px;
+}
+
+.content-container {
+  overflow: hidden;
+  flex: 1;
+}
+
+.text-highlight {
+  color: crimson;
+  font-weight: 300;
+}
+
+/* Animations */
+
+@keyframes spin {
   from {
     transform: rotate(0deg);
   }

@@ -1,0 +1,128 @@
+.moviesContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.moviesTop {
+  width: 90%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.moviesTitle {
+  font-size: 32px;
+  font-weight: 200;
+}
+
+.moviesSearchResults {
+  padding: 8px 0;
+  margin-left: 24px;
+  font-weight: 300;
+  text-shadow: 1px 1px 10px crimson, 1px 1px 10px crimson;
+  color: crimson;
+  border-bottom: 1.5px crimson solid;
+  font-size: 24px;
+  display: none;
+}
+
+.moviesList {
+  margin-top: 60px;
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  position: relative;
+}
+
+.movieListLoading {
+  font-size: 64px;
+  color: crimson;
+  display: none;
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: loading 1000ms infinite;
+}
+
+.movieItem {
+  width: 198px;
+  margin: 24px 8px;
+  background-color: #1e1e1e;
+  color: #1a1a1a;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 12px 0px rgb(5, 5, 5, 0.45);
+  position: relative;
+}
+
+.movieImageWrapper {
+  background-color: #1e1e1e;
+  width: 100%;
+  max-height: 288px;
+  overflow: hidden;
+}
+
+.movieImageWrapper img {
+  width: 100%;
+  max-height: 288px;
+  height: 288px;
+  transition: all 0.4s ease;
+  z-index: -2;
+}
+
+.movieImageWrapper:hover img {
+  transform: scale(1.04);
+  filter: opacity(45%) blur(4px);
+}
+
+.movieImageWrapper:hover .movieInfoTitle,
+.movieImageWrapper:hover .movieInfoList {
+  opacity: 1;
+}
+
+.movieTitle {
+  font-weight: 200;
+  font-size: 14px;
+  margin: 8px 0 24px 0;
+  padding: 0 8px;
+  color: #fff;
+  text-align: center;
+}
+
+.movieInfoTitle {
+  position: absolute;
+  text-align: left;
+  color: #fff;
+  font-size: 20px;
+  top: 24px;
+  left: 16px;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.movieInfoList {
+  position: absolute;
+  top: 45%;
+  left: 8px;
+  transform: translateY(-50%);
+  width: 90%;
+  z-index: 1;
+  opacity: 0%;
+  transition: opacity 200ms;
+}
+
+.movieInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  padding: 0 8px;
+  color: #fff;
+}
+
+.movieInfo:first-child {
+  margin-top: 60px;
+}
