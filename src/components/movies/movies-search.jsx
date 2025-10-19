@@ -1,17 +1,16 @@
 import { Search } from 'lucide-react';
-import styles from './movies.module.css';
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { useSearch } from '../../context/search-context';
+import { useMovie } from '../../context/movie-context';
+import styles from './movies.module.css';
 
 export const MoviesSearch = () => {
   const [inputValue, setInputValue] = useState('');
 
-  const { setSearchQuery } = useSearch();
+  const { setMovieQuery } = useMovie();
 
   const handleSubmit = e => {
     e.preventDefault();
-    setSearchQuery(inputValue);
+    setMovieQuery(inputValue);
   };
 
   return (

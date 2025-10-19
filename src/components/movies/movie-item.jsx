@@ -7,17 +7,17 @@ export const MovieItem = ({ movie }) => {
   const navigate = useNavigate();
 
   const handleFindOutMore = () => {
-    navigate(`/movies/123`);
+    navigate(`/movies/${movie.imdbID}`);
   };
 
   return (
     <div className={styles.movieItem}>
       <figure className={styles.movieImageWrapper}>
         <img src={movie.Poster} alt='movie-poster' />
-        <h3 className={styles.movieInfoTitle}>{movie.Title}</h3>
-        <div className={styles.movieInfoList}>
-          <Star className={styles.movieInfoStarNoLike} />
-          <button className={styles.movieInfoBtn} onClick={handleFindOutMore}>
+        <h3 className={styles.movieItemTitle}>{movie.Title}</h3>
+        <div className={styles.movieItemList}>
+          <Star className={styles.movieItemStarNoLike} />
+          <button className={styles.movieItemBtn} onClick={handleFindOutMore}>
             Find Out More
           </button>
         </div>

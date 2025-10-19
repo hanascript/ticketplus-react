@@ -86,3 +86,19 @@
   transition: 400ms ease;
   cursor: pointer;
 }
+
+@media (max-width: 550px) {
+  .ctaTitle {
+    font-size: 40px;
+  }
+
+  .ctaSubtitle {
+    font-size: 18px;
+  }
+
+  .ctaSearch input {
+    font-size: 16px;
+    padding: 16px 0 16px 20px;
+    width: 95%;
+  }
+}

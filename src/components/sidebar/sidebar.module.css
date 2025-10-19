@@ -64,3 +64,27 @@ hr {
   fill: crimson !important;
   border-right-color: crimson;
 }
+
+@media (max-width: 640px) {
+  .sidebar {
+    width: 90px;
+    padding-left: 28px;
+    padding-top: 32px;
+  }
+
+  .sidebar > h4 {
+    display: none;
+  }
+
+  .sidebarOption > p {
+    display: none;
+  }
+
+  .active {
+    border-right-color: transparent;
+  }
+
+  hr {
+    margin-right: 24px;
+  }
+}

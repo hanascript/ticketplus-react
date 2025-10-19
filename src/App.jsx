@@ -3,21 +3,23 @@ import Home from './pages/home';
 import Movies from './pages/movies';
 import SiteLayout from './components/site-layout';
 import MovieDetails from './pages/movie-details';
-import { SearchProvider } from './context/search-context';
+import NotFound from './pages/not-found';
+import { MovieProvider } from './context/movie-context';
 
 function App() {
   return (
-    <SearchProvider>
+    <MovieProvider>
       <BrowserRouter>
         <Routes>
           <Route element={<SiteLayout />}>
             <Route path='/' element={<Home />} />
             <Route path='/movies' element={<Movies />} />
             <Route path='/movies/:movieId' element={<MovieDetails />} />
+            <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>
-    </SearchProvider>
+    </MovieProvider>
   );
 }
 

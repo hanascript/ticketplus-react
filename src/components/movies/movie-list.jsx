@@ -3,43 +3,64 @@ import { MovieItem, MovieItemLoading } from './movie-item';
 
 import styles from './movies.module.css';
 
-export const MovieList = ({ searchQuery }) => {
+export const MovieList = ({ movieQuery }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
-    fetchMovies(searchQuery)
+    setError(null);
+    fetchMovies(movieQuery)
       .then(setMovies)
       .finally(() => setLoading(false));
-  }, [searchQuery]);
+  }, [movieQuery]);
 
-  const fetchMovies = async (searchTerm = 'spider') => {
+  const fetchMovies = async (searchTerm = pickRandomMovies()) => {
     const response = await fetch(`https://www.omdbapi.com/?apikey=18a085e&s=${searchTerm}`);
     const data = await response.json();
 
     if (data.Response === 'False') {
+      setError('No movies found. Try another search');
       return [];
     }
-
-    console.log(data);
 
     return data.Search.slice(0, 6);
   };
 
+  const pickRandomMovies = () => {
+    const randomSearch = [
+      'spider',
+      'batman',
+      'pokemon',
+      'harry potter',
+      'lord of the rings',
+      'alien',
+      'witch',
+      'scary',
+    ];
+
+    const randomIndex = Math.floor(Math.random() * randomSearch.length);
+
+    return randomSearch[randomIndex];
+  };
+
   return (
-    <div className={styles.moviesContent}>
-      {loading ? (
-        <MovieListLoading />
-      ) : (
-        <div className={styles.moviesList}>
-          {movies.map((movie, idx) => {
-            const key = `${movie.Title}-${idx}`;
-            return <MovieItem key={key} movie={movie} />;
-          })}
-        </div>
-      )}
-    </div>
+    <>
+      {error && <div className={styles.error}>{error}</div>}
+      <div className={styles.moviesContent}>
+        {loading ? (
+          <MovieListLoading />
+        ) : (
+          <div className={styles.moviesList}>
+            {movies.map((movie, idx) => {
+              const key = `${movie.Title}-${idx}`;
+              return <MovieItem key={key} movie={movie} />;
+            })}
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

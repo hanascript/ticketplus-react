@@ -1,19 +1,19 @@
 import { useState } from 'react';
 
 import styles from './header.module.css';
-import { useSearch } from '../../context/search-context';
+import { useMovie } from '../../context/movie-context';
 import { useNavigate } from 'react-router';
 
 export const Header = () => {
   const [inputValue, setInputValue] = useState('');
 
-  const { setSearchQuery } = useSearch();
+  const { setMovieQuery } = useMovie();
 
   const navigate = useNavigate();
 
   const handleSubmit = e => {
     e.preventDefault();
-    setSearchQuery(inputValue);
+    setMovieQuery(inputValue);
     navigate('/movies');
   };
 
