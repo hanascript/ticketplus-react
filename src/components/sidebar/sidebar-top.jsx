@@ -1,8 +1,12 @@
 import { NavLink } from 'react-router';
 
 import styles from './sidebar.module.css';
+import { Star } from 'lucide-react';
+import { useMovie } from '../../context/movie-context';
 
 export const SidebarTop = () => {
+  const { user } = useMovie();
+
   return (
     <div className={styles.sidebarTop}>
       <NavLink
@@ -38,6 +42,16 @@ export const SidebarTop = () => {
         </svg>
         <p>Movies</p>
       </NavLink>
+      {user && (
+        <NavLink
+          to='/likes'
+          className={({ isActive }) => (isActive ? `${styles.sidebarOption} ${styles.active}` : styles.sidebarOption)}
+          end
+        >
+          <Star className={styles.sidebarOptionIconStar} />
+          <p>Likes</p>
+        </NavLink>
+      )}
     </div>
   );
 };

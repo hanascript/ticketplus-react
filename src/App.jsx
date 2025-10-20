@@ -8,6 +8,7 @@ import Movies from './pages/movies';
 import NotFound from './pages/not-found';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/firebase';
+import Likes from './pages/likes';
 
 function App() {
   const { setUser } = useMovie();
@@ -29,6 +30,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/movies' element={<Movies />} />
           <Route path='/movies/:movieId' element={<MovieDetails />} />
+          <Route path='/likes' element={<Likes />} />
           <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>

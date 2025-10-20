@@ -58,11 +58,25 @@ hr {
   margin-right: 20px;
 }
 
+.sidebarOptionIconStar {
+  width: 36px;
+  height: 36px;
+  transition: all 0.3s ease;
+  margin-right: 20px;
+  fill: grey;
+  stroke: grey;
+}
+
 .active,
 .active .sidebarOptionIcon {
   color: #fff;
   fill: crimson !important;
   border-right-color: crimson;
+}
+
+.active .sidebarOptionIconStar {
+  fill: crimson !important;
+  stroke: crimson !important;
 }
 
 @media (max-width: 640px) {

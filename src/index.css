@@ -97,7 +97,7 @@ a {
 }
 
 .movie-details-margin {
-  margin: 0 40px
+  margin: 0 40px;
 }
 
 .not-found-container {
@@ -121,7 +121,37 @@ a {
 }
 
 .spin-animation {
-  animation: spin 2s linear infinite
+  animation: spin 2s linear infinite;
+}
+
+.likes-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.likes-page-no-likes-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  height: 100%;
+  width: 100%;
+}
+
+.likes-page-no-likes-text {
+  font-size: 32px;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.likes-page-container {
+  margin: 60px 40px 0 40px;
+
 }
 
 /* Animations */
@@ -152,9 +182,18 @@ a {
   }
 }
 
+@media (max-width: 464px) {
+  .likes-page-no-likes-text {
+    font-size: 18px;
+  }
+
+  .likes-page-no-likes-wrapper {
+    flex-direction: column;
+  }
+}
+
 @media (max-width: 364px) {
   .flex-center {
     flex-direction: column-reverse;
-    
   }
 }

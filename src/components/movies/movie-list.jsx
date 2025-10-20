@@ -4,7 +4,7 @@ import { MovieItem, MovieItemLoading } from './movie-item';
 import styles from './movies.module.css';
 import { Loader2 } from 'lucide-react';
 
-export const MovieList = ({ movieQuery, spinner = false }) => {
+export const MovieList = ({ movieQuery, spinner = false, shortList = true }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -26,7 +26,7 @@ export const MovieList = ({ movieQuery, spinner = false }) => {
       return [];
     }
 
-    return data.Search.slice(0, 6);
+    return shortList ? data.Search.slice(0, 6) : data.Search;
   };
 
   const pickRandomMovies = () => {

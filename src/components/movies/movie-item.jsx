@@ -3,19 +3,39 @@ import { useNavigate } from 'react-router';
 
 import styles from './movies.module.css';
 import { useMovie } from '../../context/movie-context';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { checkIfUserLikedMovie, createNewLike, deleteLike } from '../../firebase/db';
 
 export const MovieItem = ({ movie }) => {
-  const { user } = useMovie();
+  const { user, refreshLikes } = useMovie();
   const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkLikeStatus = async () => {
+      if (user && movie) {
+        const hasLiked = await checkIfUserLikedMovie(movie.imdbID, user.uid);
+        setLiked(hasLiked);
+      }
+    };
+
+    checkLikeStatus();
+  }, [user, movie]);
 
   const handleFindOutMore = () => {
     navigate(`/movies/${movie.imdbID}`);
   };
 
   const handleLike = () => {
-    setLiked(!liked);
+    if (liked) {
+      deleteLike(movie.imdbID);
+      setLiked(false);
+    } else {
+      createNewLike(movie.Poster, movie.Title, movie.imdbID);
+      setLiked(true);
+    }
+
+    refreshLikes();
   };
 
   return (

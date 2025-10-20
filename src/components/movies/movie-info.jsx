@@ -3,9 +3,10 @@ import { Play, Star } from 'lucide-react';
 import { useMovie } from '../../context/movie-context';
 
 import styles from './movies.module.css';
+import { checkIfUserLikedMovie, createNewLike, deleteLike } from '../../firebase/db';
 
 export const MovieInfo = ({ id }) => {
-  const { user } = useMovie();
+  const { user, refreshLikes } = useMovie();
   const [liked, setLiked] = useState(false);
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -18,6 +19,17 @@ export const MovieInfo = ({ id }) => {
       .then(setMovie)
       .finally(() => setLoading(false));
   }, [id]);
+
+  useEffect(() => {
+    const checkLikeStatus = async () => {
+      if (user && movie) {
+        const hasLiked = await checkIfUserLikedMovie(movie.imdbID, user.uid);
+        setLiked(hasLiked);
+      }
+    };
+
+    checkLikeStatus();
+  }, [user, movie]);
 
   const fetchMovie = async () => {
     const response = await fetch(`https://www.omdbapi.com/?apikey=18a085e&i=${id}`);
@@ -32,7 +44,15 @@ export const MovieInfo = ({ id }) => {
   };
 
   const handleLike = () => {
-    setLiked(!liked);
+    if (liked) {
+      deleteLike(movie.imdbID);
+      setLiked(false);
+    } else {
+      createNewLike(movie.Poster, movie.Title, movie.imdbID);
+      setLiked(true);
+    }
+
+    refreshLikes()
   };
 
   return (
