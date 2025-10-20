@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { MovieItem, MovieItemLoading } from './movie-item';
 
 import styles from './movies.module.css';
+import { Loader2 } from 'lucide-react';
 
-export const MovieList = ({ movieQuery }) => {
+export const MovieList = ({ movieQuery, spinner = false }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -50,7 +51,11 @@ export const MovieList = ({ movieQuery }) => {
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.moviesContent}>
         {loading ? (
-          <MovieListLoading />
+          spinner ? (
+            <MovieListLoadingSpinner />
+          ) : (
+            <MovieListLoading />
+          )
         ) : (
           <div className={styles.moviesList}>
             {movies.map((movie, idx) => {
@@ -73,6 +78,14 @@ const MovieListLoading = () => {
       <MovieItemLoading />
       <MovieItemLoading />
       <MovieItemLoading />
+    </div>
+  );
+};
+
+const MovieListLoadingSpinner = () => {
+  return (
+    <div className={styles.movieListLoadingSpinner}>
+      <Loader2 className='spin-animation' style={{ width: '64px', height: '64px', stroke: 'crimson' }} />
     </div>
   );
 };

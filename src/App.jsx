@@ -1,25 +1,38 @@
-import { BrowserRouter, Routes, Route } from 'react-router';
-import Home from './pages/home';
-import Movies from './pages/movies';
+import { useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router';
 import SiteLayout from './components/site-layout';
+import { useMovie } from './context/movie-context';
+import Home from './pages/home';
 import MovieDetails from './pages/movie-details';
+import Movies from './pages/movies';
 import NotFound from './pages/not-found';
-import { MovieProvider } from './context/movie-context';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase/firebase';
 
 function App() {
+  const { setUser } = useMovie();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+  }, []);
+
   return (
-    <MovieProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<SiteLayout />}>
-            <Route path='/' element={<Home />} />
-            <Route path='/movies' element={<Movies />} />
-            <Route path='/movies/:movieId' element={<MovieDetails />} />
-            <Route path='*' element={<NotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </MovieProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<SiteLayout />}>
+          <Route path='/' element={<Home />} />
+          <Route path='/movies' element={<Movies />} />
+          <Route path='/movies/:movieId' element={<MovieDetails />} />
+          <Route path='*' element={<NotFound />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

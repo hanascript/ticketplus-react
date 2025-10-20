@@ -18,7 +18,7 @@ export default function Movies() {
       </section>
       {movieQuery && (
         <section className='movies-margin'>
-          <MovieList searchQuery={movieQuery} />
+          <MovieList movieQuery={movieQuery} spinner={true} />
         </section>
       )}
     </>

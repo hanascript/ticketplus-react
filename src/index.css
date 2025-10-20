@@ -25,6 +25,15 @@ a {
   display: flex;
 }
 
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.gap-4 {
+  gap: 16px;
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -111,6 +120,10 @@ a {
   font-weight: 300;
 }
 
+.spin-animation {
+  animation: spin 2s linear infinite
+}
+
 /* Animations */
 
 @keyframes spin {
@@ -136,5 +149,12 @@ a {
   .movie-details-recommended-movies {
     font-size: 24px;
     text-align: center;
+  }
+}
+
+@media (max-width: 364px) {
+  .flex-center {
+    flex-direction: column-reverse;
+    
   }
 }

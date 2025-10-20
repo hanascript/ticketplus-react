@@ -3,6 +3,12 @@
   margin-top: 60px;
 }
 
+.movieDetailsError {
+  text-align: center;
+  margin: 60px 0;
+  font-size: 48px;
+}
+
 .homeRecommendations {
   margin-top: 60px;
   padding: 0 60px;
@@ -139,11 +145,13 @@
 .movieItemStarNoLike {
   fill: #fff;
   stroke: #fff;
+  cursor: pointer;
 }
 
 .movieItemStarLike {
   fill: goldenrod;
   stroke: goldenrod;
+  cursor: pointer;
 }
 
 .moviesSearch {
@@ -201,6 +209,38 @@
   margin-right: 80px;
 }
 
+.movieInfoImgLoading {
+  width: 300px;
+  height: 433px;
+  background-color: white;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.movieInfoTitleLoading {
+  width: 240px;
+  height: 48px;
+  background-color: white;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.movieInfoDetailsLoading {
+  width: 40px;
+  height: 20px;
+  background-color: white;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.movieInfoTextLoading {
+  width: 450px;
+  height: 30px;
+  background-color: white;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
 .movieInfoImg > img {
   border-radius: 8px;
   height: 433px;
@@ -249,6 +289,7 @@
   height: 20px;
   margin-right: 8px;
 }
+
 
 @media (max-width: 1200px) {
   .movieInfoTitle {
@@ -303,6 +344,10 @@
     width: 32px;
     height: 32px;
   }
+
+  .movieDetailsError {
+    font-size: 24px;
+  }
 }
 
 @media (max-width: 550px) {
@@ -314,6 +359,19 @@
   .movieImageWrapper img {
     height: 188px;
     max-height: 188px;
+  }
+
+  .movieInfoDetails {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .movieInfoDetails p {
+    font-size: 14px;
+  }
+
+  .movieInfoDetails span {
+    display: none;
   }
 }
 

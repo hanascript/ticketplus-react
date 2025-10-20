@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Play } from 'lucide-react';
+import { Play, Star } from 'lucide-react';
+import { useMovie } from '../../context/movie-context';
 
 import styles from './movies.module.css';
 
 export const MovieInfo = ({ id }) => {
+  const { user } = useMovie();
+  const [liked, setLiked] = useState(false);
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     setLoading(true);
@@ -20,14 +23,16 @@ export const MovieInfo = ({ id }) => {
     const response = await fetch(`https://www.omdbapi.com/?apikey=18a085e&i=${id}`);
     const data = await response.json();
 
-    console.log(data);
-
     if (data.Response === 'False') {
       setError('No movie found. Try another search');
       return [];
     }
 
     return data;
+  };
+
+  const handleLike = () => {
+    setLiked(!liked);
   };
 
   return (
@@ -41,13 +46,56 @@ export const MovieInfo = ({ id }) => {
             <h1 className={styles.movieInfoTitle}>{movie.Title}</h1>
             <div className={styles.movieInfoDetails}>
               <p>{movie.Released}</p>
-              <p>.</p>
+              <span>.</span>
               <p>{movie.Runtime}</p>
-              <p>.</p>
+              <span>.</span>
               <p>{movie.imdbRating}/10</p>
             </div>
             <h3 className={styles.movieOverview}>Overview:</h3>
             <p className={styles.movieInfoText}>{movie.Plot}</p>
+            <div className='flex-center gap-4'>
+              <button className={styles.movieInfoBtn} disabled>
+                <Play className={styles.movieInfoBtnIcon} /> Watch
+              </button>
+
+              {user &&
+                (liked ? (
+                  <Star
+                    onClick={handleLike}
+                    className={styles.movieItemStarLike}
+                    style={{ width: '35px', height: '35px' }}
+                  />
+                ) : (
+                  <Star
+                    onClick={handleLike}
+                    className={styles.movieItemStarNoLike}
+                    style={{ width: '35px', height: '35px' }}
+                  />
+                ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {loading && (
+        <div className={styles.movieInfo}>
+          <figure className={styles.movieInfoImg}>
+            <div className={styles.movieInfoImgLoading} />
+          </figure>
+          <div>
+            <h1 className={styles.movieInfoTitleLoading} />
+            <div className={styles.movieInfoDetails}>
+              <div className={styles.movieInfoDetailsLoading} />
+              <span>.</span>
+              <div className={styles.movieInfoDetailsLoading} />
+              <span>.</span>
+              <div className={styles.movieInfoDetailsLoading} />
+            </div>
+            <h3 className={styles.movieOverview}>Overview:</h3>
+            <p className={styles.movieInfoTextLoading} />
+            <p className={styles.movieInfoTextLoading} />
+            <p className={styles.movieInfoTextLoading} />
+            <p className={styles.movieInfoTextLoading} />
             <button className={styles.movieInfoBtn} disabled>
               <Play className={styles.movieInfoBtnIcon} /> Watch
             </button>
@@ -55,11 +103,7 @@ export const MovieInfo = ({ id }) => {
         </div>
       )}
 
-      {
-        loading && (
-          <div>asd</div>
-        )
-      }
+      {error && <div className={styles.movieDetailsError}>{error}</div>}
     </div>
   );
 };

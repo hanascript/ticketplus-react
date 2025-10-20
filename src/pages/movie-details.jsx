@@ -11,7 +11,7 @@ export default function MoviesDetails() {
       </div>
       <div className='movie-details-margin'>
         <h3 className='movie-details-recommended-movies'>Recommended Movies</h3>
-        <MovieList />
+        <MovieList spinner={true} />
       </div>
     </>
   );

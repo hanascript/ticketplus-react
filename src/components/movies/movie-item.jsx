@@ -2,12 +2,20 @@ import { Star } from 'lucide-react';
 import { useNavigate } from 'react-router';
 
 import styles from './movies.module.css';
+import { useMovie } from '../../context/movie-context';
+import { useState } from 'react';
 
 export const MovieItem = ({ movie }) => {
+  const { user } = useMovie();
+  const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
 
   const handleFindOutMore = () => {
     navigate(`/movies/${movie.imdbID}`);
+  };
+
+  const handleLike = () => {
+    setLiked(!liked);
   };
 
   return (
@@ -16,7 +24,13 @@ export const MovieItem = ({ movie }) => {
         <img src={movie.Poster} alt='movie-poster' />
         <h3 className={styles.movieItemTitle}>{movie.Title}</h3>
         <div className={styles.movieItemList}>
-          <Star className={styles.movieItemStarNoLike} />
+          {user ? (
+            liked ? (
+              <Star onClick={handleLike} className={styles.movieItemStarLike} />
+            ) : (
+              <Star onClick={handleLike} className={styles.movieItemStarNoLike} />
+            )
+          ) : null}
           <button className={styles.movieItemBtn} onClick={handleFindOutMore}>
             Find Out More
           </button>
