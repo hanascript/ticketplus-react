@@ -1,6 +1,5 @@
+import { addDoc, collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import { db } from './firebase';
-import { auth } from './firebase';
-import { collection, addDoc, getDocs, getDoc, query, where, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 // Create a new like
 export const createNewLike = async (poster, title, imdbID, uid) => {

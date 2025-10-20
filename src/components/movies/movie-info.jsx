@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
 import { Play, Star } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useMovie } from '../../context/movie-context';
 
-import styles from './movies.module.css';
 import { checkIfUserLikedMovie, createNewLike, deleteLike } from '../../firebase/db';
+import styles from './movies.module.css';
 
 export const MovieInfo = ({ id }) => {
   const { user, refreshLikes } = useMovie();
