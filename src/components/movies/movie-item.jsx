@@ -28,10 +28,10 @@ export const MovieItem = ({ movie }) => {
 
   const handleLike = () => {
     if (liked) {
-      deleteLike(movie.imdbID);
+      deleteLike(movie.imdbID, user.uid);
       setLiked(false);
     } else {
-      createNewLike(movie.Poster, movie.Title, movie.imdbID);
+      createNewLike(movie.Poster, movie.Title, movie.imdbID, user.uid);
       setLiked(true);
     }
 

@@ -3,21 +3,21 @@ import { auth } from './firebase';
 import { collection, addDoc, getDocs, getDoc, query, where, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 // Create a new like
-export const createNewLike = async (poster, title, imdbID) => {
+export const createNewLike = async (poster, title, imdbID, uid) => {
   const like = {
     poster,
     title,
     imdbID,
-    uid: auth.currentUser.uid,
+    uid
   };
 
   addDoc(collection(db, 'likes'), like);
 };
 
 // Get all likes for a user
-export const getAllLikesForUser = async () => {
+export const getAllLikesForUser = async (uid) => {
   const likesRef = collection(db, 'likes');
-  const q = query(likesRef, where('uid', '==', auth.currentUser.uid));
+  const q = query(likesRef, where('uid', '==', uid));
 
   const querySnapshot = await getDocs(q);
 
@@ -38,9 +38,9 @@ export const checkIfUserLikedMovie = async (imdbID, uid) => {
   return !querySnapshot.empty;
 };
 
-export const deleteLike = async movieId => {
+export const deleteLike = async (movieId, uid) => {
   const likeRef = collection(db, 'likes');
-  const q = query(likeRef, where('imdbID', '==', movieId), where('uid', '==', auth.currentUser.uid));
+  const q = query(likeRef, where('imdbID', '==', movieId), where('uid', '==', uid));
 
   const querySnapshot = await getDocs(q);
 

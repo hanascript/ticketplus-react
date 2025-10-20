@@ -16,9 +16,9 @@ export default function Likes() {
   useEffect(() => {
     const fetchLikes = async () => {
       setLoading(true);
-      if (user && auth.currentUser) {
+      if (user) {
         try {
-          const data = await getAllLikesForUser();
+          const data = await getAllLikesForUser(user.uid);
           setLikes(
             data.map(like => {
               return {
@@ -33,6 +33,9 @@ export default function Likes() {
         } finally {
           setLoading(false);
         }
+      } else {
+        setLoading(false);
+        setLikes([]);
       }
     };
 
