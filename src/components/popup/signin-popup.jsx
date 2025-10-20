@@ -40,7 +40,6 @@ export const SignInPopup = () => {
         handleClosePopup();
       })
       .catch(error => {
-        console.log(error.code);
         if (error.code === 'auth/invalid') {
           setErrorMessage('Invalid email or password.');
         } else if (error.code === 'auth/invalid-credential') {
