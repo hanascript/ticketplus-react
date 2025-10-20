@@ -11,7 +11,7 @@ export const createNewLike = async (poster, title, imdbID, uid) => {
     uid
   };
 
-  addDoc(collection(db, 'likes'), like);
+  return await addDoc(collection(db, 'likes'), like);
 };
 
 // Get all likes for a user
@@ -50,7 +50,7 @@ export const deleteLike = async (movieId, uid) => {
   }
 
   const likeDoc = querySnapshot.docs[0];
-  await deleteDoc(doc(db, 'likes', likeDoc.id));
+  return await deleteDoc(doc(db, 'likes', likeDoc.id));
 };
 
 const remapDocs = docs => {

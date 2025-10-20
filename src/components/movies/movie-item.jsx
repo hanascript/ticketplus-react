@@ -26,12 +26,12 @@ export const MovieItem = ({ movie }) => {
     navigate(`/movies/${movie.imdbID}`);
   };
 
-  const handleLike = () => {
+  const handleLike = async () => {
     if (liked) {
-      deleteLike(movie.imdbID, user.uid);
+      await deleteLike(movie.imdbID, user.uid);
       setLiked(false);
     } else {
-      createNewLike(movie.Poster, movie.Title, movie.imdbID, user.uid);
+      await createNewLike(movie.Poster, movie.Title, movie.imdbID, user.uid);
       setLiked(true);
     }
 
