@@ -14,14 +14,12 @@ function App() {
   const { setUser } = useMovie();
 
   useEffect(() => {
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(null);
-      }
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      setUser(user);
     });
-  }, []);
+
+    return () => unsubscribe();
+  }, [setUser]);
 
   return (
     <BrowserRouter>

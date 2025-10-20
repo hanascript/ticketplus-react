@@ -10,41 +10,44 @@ export const MovieList = ({ movieQuery, spinner = false, shortList = true }) => 
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const pickRandomMovies = () => {
+      const randomSearch = [
+        'spider',
+        'batman',
+        'pokemon',
+        'harry potter',
+        'lord of the rings',
+        'alien',
+        'witch',
+        'scary',
+      ];
+      return randomSearch[Math.floor(Math.random() * randomSearch.length)];
+    };
+
+    const fetchMovies = async (searchTerm = pickRandomMovies()) => {
+      try {
+        const response = await fetch(`https://www.omdbapi.com/?apikey=18a085e&s=${searchTerm}`);
+        const data = await response.json();
+
+        if (data.Response === 'False') {
+          setError('No movies found. Try another search');
+          return [];
+        }
+
+        return shortList ? data.Search.slice(0, 6) : data.Search;
+      } catch (error) {
+        console.error('Error fetching movies:', error);
+        setError('Something went wrong. Please try again.');
+        return [];
+      }
+    };
+
     setLoading(true);
     setError(null);
     fetchMovies(movieQuery)
       .then(setMovies)
       .finally(() => setLoading(false));
-  }, [movieQuery]);
-
-  const fetchMovies = async (searchTerm = pickRandomMovies()) => {
-    const response = await fetch(`https://www.omdbapi.com/?apikey=18a085e&s=${searchTerm}`);
-    const data = await response.json();
-
-    if (data.Response === 'False') {
-      setError('No movies found. Try another search');
-      return [];
-    }
-
-    return shortList ? data.Search.slice(0, 6) : data.Search;
-  };
-
-  const pickRandomMovies = () => {
-    const randomSearch = [
-      'spider',
-      'batman',
-      'pokemon',
-      'harry potter',
-      'lord of the rings',
-      'alien',
-      'witch',
-      'scary',
-    ];
-
-    const randomIndex = Math.floor(Math.random() * randomSearch.length);
-
-    return randomSearch[randomIndex];
-  };
+  }, [movieQuery, shortList]);
 
   return (
     <>

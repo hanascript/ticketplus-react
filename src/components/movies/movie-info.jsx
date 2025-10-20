@@ -13,11 +13,28 @@ export const MovieInfo = ({ id }) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
-    fetchMovie(id)
-      .then(setMovie)
-      .finally(() => setLoading(false));
+    const fetchMovie = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(`https://www.omdbapi.com/?apikey=18a085e&i=${id}`);
+        const data = await response.json();
+
+        if (data.Response === 'False') {
+          setError('No movie found. Try another search');
+          return [];
+        }
+
+        setMovie(data);
+      } catch (error) {
+        console.error('Error fetching movie:', error);
+        setError('Something went wrong. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMovie();
   }, [id]);
 
   useEffect(() => {
@@ -31,18 +48,6 @@ export const MovieInfo = ({ id }) => {
     checkLikeStatus();
   }, [user, movie]);
 
-  const fetchMovie = async () => {
-    const response = await fetch(`https://www.omdbapi.com/?apikey=18a085e&i=${id}`);
-    const data = await response.json();
-
-    if (data.Response === 'False') {
-      setError('No movie found. Try another search');
-      return [];
-    }
-
-    return data;
-  };
-
   const handleLike = () => {
     if (liked) {
       deleteLike(movie.imdbID);
@@ -52,7 +57,7 @@ export const MovieInfo = ({ id }) => {
       setLiked(true);
     }
 
-    refreshLikes()
+    refreshLikes();
   };
 
   return (

@@ -6,6 +6,7 @@ import { getAllLikesForUser } from '../firebase/db';
 import { Frown, Loader2 } from 'lucide-react';
 import { useMovie } from '../context/movie-context';
 import { Navigate } from 'react-router';
+import { auth } from '../firebase/firebase';
 
 export default function Likes() {
   const [likes, setLikes] = useState([]);
@@ -13,25 +14,30 @@ export default function Likes() {
   const { user, likesRefresh } = useMovie();
 
   useEffect(() => {
+    const fetchLikes = async () => {
+      setLoading(true);
+      if (user && auth.currentUser) {
+        try {
+          const data = await getAllLikesForUser();
+          setLikes(
+            data.map(like => {
+              return {
+                Title: like.title,
+                Poster: like.poster,
+                imdbID: like.imdbID,
+              };
+            })
+          );
+        } catch (error) {
+          console.error('Error fetching likes:', error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
     fetchLikes();
   }, [user, likesRefresh]);
-
-  const fetchLikes = async () => {
-    setLoading(true);
-    if (user) {
-      const data = await getAllLikesForUser();
-      setLikes(
-        data.map(like => {
-          return {
-            Title: like.title,
-            Poster: like.poster,
-            imdbID: like.imdbID,
-          };
-        })
-      );
-    }
-    setLoading(false);
-  };
 
   if (loading) {
     return (
